@@ -1,4 +1,0 @@
-{
-    "app": "node dist/lib/app",
-    "output": "build/cdk.out"
-}
