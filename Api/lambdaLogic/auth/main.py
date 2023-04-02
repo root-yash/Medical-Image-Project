@@ -1,0 +1,2 @@
+def lambdaHandler():
+    print("success")
