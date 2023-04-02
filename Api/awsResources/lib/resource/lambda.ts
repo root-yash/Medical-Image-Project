@@ -63,8 +63,8 @@ export class lambda extends Construct{
         const apiLambda = new Function(this, "API-Lambda",{
             functionName: "Api-Lambda",
             description: "check auth and run relevent machine learning model",
-            code: Code.fromAsset("../lambdaLogic/api"),
-            handler: "main.lambdaHandler",
+            code:  Code.fromAsset("../lambdaLogic/api/lambda_function.py"),
+            handler: "lambda_function.lambda_handler",
             memorySize: 256,
             timeout: Duration.seconds(10),
             runtime: Runtime.PYTHON_3_9,
@@ -75,8 +75,8 @@ export class lambda extends Construct{
             new Function(this, `${mlLambda}-Lambda`,{
                 functionName: `${mlLambda}-Lambda`,
                 description: "ml model",
-                code:  Code.fromAsset("../lambdaLogic/api/main.py"),
-                handler: "main.lambdaHandler",
+                code:  Code.fromAsset(`../lambdaLogic/inferencelogic/${mlLambda}/lambda_function.py`),
+                handler: "lambda_function.lambda_handler",
                 memorySize: 1024,
                 timeout: Duration.seconds(10),
                 runtime: Runtime.PYTHON_3_9,
@@ -87,8 +87,8 @@ export class lambda extends Construct{
         new Function(this, "Auth-Lambda",{
             functionName: "Auth-Lambda",
             description: "check auth",
-            code: Code.fromAsset("../lambdaLogic/api/main.py"),
-            handler: "main.lambdaHandler",
+            code:  Code.fromAsset("../lambdaLogic/auth/lambda_function.py"),
+            handler: "lambda_function.lambda_handler",
             memorySize: 512,
             timeout: Duration.seconds(10),
             runtime: Runtime.PYTHON_3_9,
