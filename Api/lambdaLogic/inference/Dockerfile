@@ -8,6 +8,7 @@ RUN  pip3 install -r requirements.txt --target "${LAMBDA_TASK_ROOT}"
 
 # Copy function code
 COPY main_hubmap.py ${LAMBDA_TASK_ROOT}
+COPY main_leukaemia.py ${LAMBDA_TASK_ROOT}
 
 COPY hubmap ${LAMBDA_TASK_ROOT}/hubmap
 
