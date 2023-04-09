@@ -1,16 +1,16 @@
 from pathlib import Path
-KAGGLE_DIR = "hubmap/temp"
+KAGGLE_DIR = "/tmp"
 
-INPUT_DIR = "hubmap/temp/input"
-OUTPUT_DIR = "hubmap/temp/working"
+INPUT_DIR = "/tmp"
+OUTPUT_DIR = "/tmp"
 
 
-COMPETITION_DATA_DIR = "hubmap/temp/input/hubmap-organ-segmentation"
+COMPETITION_DATA_DIR = "/tmp"
 
 
 TRAIN_PREPARED_CSV_PATH = "train_prepared.csv"
 VAL_PRED_PREPARED_CSV_PATH = "val_pred_prepared.csv"
-TEST_PREPARED_CSV_PATH = "test_prepared.csv"
+TEST_PREPARED_CSV_PATH = "/tmp/test_prepared.csv"
 
 N_SPLITS = 4
 RANDOM_SEED = 2022
@@ -43,4 +43,4 @@ _COLOURS = [(230, 0, 73), (11, 180, 255), (80, 233, 145), (230, 216, 0), (155, 2
 O2C_MAP = {_o:_c for _o,_c in zip(ORGANS, _COLOURS)}
 O2C_HEX_MAP = {_o:rgb2hex(_c) for _o,_c in O2C_MAP.items()}
 
-FINAL_IMAGE = "hubmap/temp/image.jpg"
+FINAL_IMAGE = "/tmp/image.jpg"

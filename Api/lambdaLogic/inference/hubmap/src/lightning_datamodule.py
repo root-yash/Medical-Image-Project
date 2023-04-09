@@ -12,14 +12,14 @@ import tifffile
 from monai.data import CSVDataset
 from monai.data import DataLoader
 from monai.data import ImageReader
-
+import os 
 
 def rgb2gray(rgb):
     return np.dot(rgb[...,:3], [0.2989, 0.5870, 0.1140])
 
 class TIFFImageReader(ImageReader):
     def read(self, data: str) -> np.ndarray:
-        image = tifffile.imread(data)
+        image = tifffile.imread("/tmp/10078.tiff")
         image = rgb2gray(image)
         return image
 
@@ -66,15 +66,12 @@ class LitDataModule(pl.LightningDataModule):
           self.test_dataset = self._dataset(self.test_df, transform=self.test_transform)
 
     def _dataset(self, df: pd.DataFrame, transform: Callable) -> CSVDataset:
-        print("df")
         return CSVDataset(src=df, transform=transform)
 
     def test_dataloader(self) -> DataLoader:
-        print("test")
         return self._dataloader(self.test_dataset)
 
     def _dataloader(self, dataset: CSVDataset) -> DataLoader:
-        print("hiiiiiiiiiiiiii")
         return DataLoader(
             dataset,
             batch_size=self.hparams.batch_size,

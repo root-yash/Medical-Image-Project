@@ -123,34 +123,17 @@ def examine_id(df, ex_id = None, plot_overlay=True, plot_original=False, plot_se
         ex_id = df["id"].sample(1).values[0]
     
     demo_ex = df[df["id"]==ex_id].squeeze()
-    
-    if plot_original:
-        print(f"\n\n... ORIGINAL IMAGE PLOT ...\n")
-        plt.figure(figsize=_figsize)
-        plt.imshow(tf_decode_tiff(demo_ex["image"], to_numpy=True, to_rgb=True))
-        plt.title(f"Original RGB Image For ID: {ex_id}", fontweight="bold")
-        plt.axis(False)
-        plt.show()
 
-    if plot_segmentation:
-        print(f"\n\n... SEGMENTATION MASK PLOT ({demo_ex['organ']})...\n")
-        plt.figure(figsize=_figsize)
-        plt.imshow((np.stack([rle_decode(demo_ex.rle, shape=(demo_ex.img_width, demo_ex.img_height), color=1),]*3, axis=-1)*O2C_MAP[demo_ex.organ]).astype(np.float32))
-        plt.title(f"Segmentation Mask ({demo_ex.organ})", fontweight="bold")
-        plt.axis(False)
-        plt.show()
+    print(f"\n\n... IMAGE WITH RGB SEGMENTATION MASK OVERLAY ({demo_ex['organ']}) ...\n")
+    seg_overlay = get_overlay(demo_ex.image, demo_ex.organ, demo_ex.rle, img_shape=(demo_ex.img_width, demo_ex.img_height))
 
-    if plot_overlay:
-        print(f"\n\n... IMAGE WITH RGB SEGMENTATION MASK OVERLAY ({demo_ex['organ']}) ...\n")
-        seg_overlay = get_overlay(demo_ex.image, demo_ex.organ, demo_ex.rle, img_shape=(demo_ex.img_width, demo_ex.img_height))
-
-        plt.figure(figsize=_figsize)
-        plt.imshow(seg_overlay)
-        plt.title(f"Segmentation Overlay id=`{ex_id}` (organ=`{demo_ex['organ']}`)", fontweight="bold")
-        handles = [Rectangle((0,0),1,1, color=(*[__c/255. for __c in _c], 0.5)) for _c in _COLOURS]
-        labels = ORGANS
-        plt.legend(handles,labels)
-        plt.axis(False)
-        plt.savefig(FINAL_IMAGE)
+    plt.figure(figsize=_figsize)
+    plt.imshow(seg_overlay)
+    plt.title(f"Segmentation Overlay id=`{ex_id}` (organ=`{demo_ex['organ']}`)", fontweight="bold")
+    handles = [Rectangle((0,0),1,1, color=(*[__c/255. for __c in _c], 0.5)) for _c in _COLOURS]
+    labels = ORGANS
+    plt.legend(handles,labels)
+    plt.axis(False)
+    plt.savefig(FINAL_IMAGE, )
 
     print("\n\n... SINGLE ID EXPLORATION FINISHED ...\n\n")

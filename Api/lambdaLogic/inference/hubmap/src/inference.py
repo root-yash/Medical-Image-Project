@@ -69,7 +69,7 @@ def infer(
     module = LitModule.load_eval_checkpoint(checkpoint_path, device)
 
     data_module = LitDataModule(
-        test_csv_path="test_prepared.csv",
+        test_csv_path=TEST_PREPARED_CSV_PATH,
         spatial_size=spatial_size,
         val_fold=0,
         batch_size=1,
@@ -84,9 +84,10 @@ def infer(
     return test_pred_df
 
 def inference():
+
     test_df = prepare_data(COMPETITION_DATA_DIR, "test", N_SPLITS, RANDOM_SEED)
     nrows = 1
-    print("start data module")
+
     data_module = LitDataModule(
         test_csv_path=TEST_PREPARED_CSV_PATH,
         spatial_size=SPATIAL_SIZE,
@@ -94,14 +95,15 @@ def inference():
         batch_size=nrows ** 2,
         num_workers=NUM_WORKERS,
     )
+
     data_module.setup()
-    print("done data module")
-    checkpoint_path = list(Path("hubmap/model/").glob("*.ckpt"))[0]
-    print(checkpoint_path)
+    checkpoint_path = list(Path("model/").glob("*.ckpt"))[0]
+
     test_pred_df = infer(checkpoint_path)
     test_pred_df =  test_pred_df[0:1]
     test_original = test_df[test_df.id == test_pred_df.id[0]]
     test_pred = test_original.copy()
     test_pred["rle"] = test_pred_df.rle[0]
+    #return test_pred["rle"].tolist()
     examine_id(test_pred, ex_id = None, plot_overlay=True, plot_original=False, plot_segmentation=False)
 
