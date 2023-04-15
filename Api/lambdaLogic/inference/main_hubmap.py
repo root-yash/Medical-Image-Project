@@ -84,8 +84,8 @@ def lambda_handler(event, context):
     return {
         "Result": "wrong input"
     }
-# from test import event
-# lambda_handler(event, "")
+from test import event
+lambda_handler(event, "")
 
     
 
