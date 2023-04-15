@@ -47,3 +47,76 @@
 * [Leukemia Classification Dataset](https://www.kaggle.com/datasets/andrewmvd/leukemia-classification): In total there are 15,135 images from 118 patients with two labelled classes Normal and Leukemia cells. It is from National Cancer institute.
 * [Blood Cell Image](https://github.com/Shenggan/BCCD_Dataset): The diagnosis of blood-based diseases often involves identifying and characterizing patient blood samples. Automated methods to detect and classify blood cell subtypes have important medical applications.
 * [Hubmap](https://hubmapconsortium.org/): The Human BioMolecular Atlas Program (HuBMAP) is working to create a Human Reference Atlas at the cellular level. In this competition, you’ll identify and segment functional tissue units (FTUs) across five human organs.
+
+### API
+**Check this website https://base64.guru/converter/encode/image to know what kind of input goes into api( you can convert you image to base 64 and use postman to check if api working fine by passing input image through there as base 64 )**
+Header 
+```
+let headersList = {
+ "Accept": "*/*",
+ "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+ "x-api-key": "<key>",
+ "Content-Type": "application/json"
+}
+```
+#### Brain 
+**Input type**: dcm
+Payload
+```
+{
+    "Image": "<image in base 64>"
+}
+```
+Return
+```
+{
+    "Result": "Image is of tumour/ not tumour"
+}
+```
+#### Chest
+**Input type**: png
+Payload
+```
+{
+    "Image": "<image in base 64>"
+}
+```
+Return
+```
+{
+    "Result": "Image is of x disease"
+}
+```
+
+#### Leukaemia
+**Input type**: bmp
+Payload
+```
+{
+    "Image": "<image in base 64>"
+}
+```
+Return
+```
+{
+    "Result": "Image is of leukaemia/or not"
+}
+```
+
+#### Tissue
+**Input type**: Tiff
+**Output type**: jpg
+Payload
+```
+{
+    "Image": "<image in base 64>",
+    "Organ": "spleen"    // there is 4 option 'kidney', 'largeintestine', 'lung', 'prostate', 'spleen'
+}
+```
+Return
+```
+{
+    "Result": "<Image result in base64>"
+}
+```
+
