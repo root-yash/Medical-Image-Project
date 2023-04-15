@@ -60,6 +60,7 @@ let headersList = {
 }
 ```
 #### Brain 
+**Endpoint**: https://lrblt6nnp4.execute-api.ap-south-1.amazonaws.com/beta/brain
 **Input type**: dcm
 Payload
 ```
@@ -74,6 +75,7 @@ Return
 }
 ```
 #### Chest
+**Endpoint**: https://lrblt6nnp4.execute-api.ap-south-1.amazonaws.com/beta/chest
 **Input type**: png
 Payload
 ```
@@ -89,6 +91,7 @@ Return
 ```
 
 #### Leukaemia
+**Endpoint**: https://lrblt6nnp4.execute-api.ap-south-1.amazonaws.com/beta/leukaemia
 **Input type**: bmp
 Payload
 ```
@@ -104,6 +107,7 @@ Return
 ```
 
 #### Tissue
+**Endpoint**: https://lrblt6nnp4.execute-api.ap-south-1.amazonaws.com/beta/tissue
 **Input type**: Tiff
 **Output type**: jpg
 Payload
