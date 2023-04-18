@@ -22,16 +22,14 @@ export default class onlyText extends EventEmitter{
 
         canvas.parentNode.appendChild(input)  
         input.style.position = 'absolute'
-        input.style.top = '250px'
+        input.style.top = '100px'
         input.style.left = '50px' 
         
         canvas.parentNode.appendChild(submit)
         submit.innerHTML = "Upload Image"
         submit.style.position = 'absolute'
-        submit.style.top = '280px'
+        submit.style.top = '130px'
         submit.style.left = '50px'
-
-        console.log("ok")
 
         submit.addEventListener("click", () => {
             this.toDataURL(URL.createObjectURL(input.files[0]), (dataUrl)=>{
@@ -48,18 +46,23 @@ export default class onlyText extends EventEmitter{
     }
 
     getResult() { 
-        this.result = 'data:image/bmp;base64,' + JSON.parse(this.apiresult.result)["Result"].split('"')[1]
+        this.result = JSON.parse(this.apiresult.result)["Result"]
         console.log(this.result)
 
         const imageFrame = document.createElement("img")
+        const resultText = document.createElement("p");
+        // const textNode = document.createTextNode(this.result);
+        // resultText.appendChild(textNode);
 
-        imageFrame.style = `border-radius: 12px; width:50%; align: center;right: block;margin-left: auto;margin-right: auto;`
+        imageFrame.style = `border-radius: 12px; width:35%; position:absolute; top:180px; left: 50px`
         imageFrame.id = 'ClassImage'
         imageFrame.src = this.image
+        resultText.style = 'position:relative; left: 50px'
 
+        resultText.innerHTML = this.result
         this.canvas.parentNode.appendChild(imageFrame)
-        // this.canvas.parentNode.appendChild(this.imageFrame)
-        // this.imageFrame.src = this.result
+        this.canvas.parentNode.appendChild(resultText)
+
     }
 
     setupImage(){

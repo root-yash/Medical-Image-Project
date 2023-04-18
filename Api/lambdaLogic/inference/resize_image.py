@@ -1,6 +1,8 @@
 from PIL import Image
-
-image = Image.open("tmp/10078.tiff")
-new_image = image.resize((1000,1000), resample= Image.LANCZOS)
-new_image.save('tmp/100783.tiff')
+import os 
+all_tiff = os.listdir("testing/hubmap")
+for i in all_tiff:
+    image = Image.open("testing/hubmap/"+i)
+    new_image = image.resize((1000,1000), resample= Image.LANCZOS)
+    new_image.save("testing/hubmap/"+i)
 

@@ -6,6 +6,7 @@ export default class onlyImage extends EventEmitter{
         super()
         this.canvas = canvas 
         this.canvasImage = canvasImage
+        this.organ = null
         this.setup(canvas)
     }
 
@@ -13,7 +14,7 @@ export default class onlyImage extends EventEmitter{
         const ctx = this.canvas.getContext('2d');
     
         // Create dropdowns
-        const organ = document.createElement('select');
+        this.organ = document.createElement('select');
         
         // Populate dropdowns
         const options = ['None', 'kidney', 'largeintestine', 'lung', 'prostate', 'spleen'];
@@ -21,17 +22,17 @@ export default class onlyImage extends EventEmitter{
             const option = document.createElement('option')
             option.value = options[i]
             option.text = options[i]
-            organ.appendChild(option)
+            this.organ.appendChild(option)
         }
         
         // Position dropdowns on canvas
-        organ.style.position = 'absolute'
-        organ.style.top = '200px'
-        organ.style.left = '50px'
+        this.organ.style.position = 'absolute'
+        this.organ.style.top = '100px'
+        this.organ.style.left = '50px'
         
         // Add dropdowns to canvas
-        canvas.parentNode.appendChild(organ);
-        organ.addEventListener("change", () => {
+        canvas.parentNode.appendChild(this.organ);
+        this.organ.addEventListener("change", () => {
             const submit = document.createElement("submit")
 
             const input = document.createElement("input")
@@ -41,13 +42,13 @@ export default class onlyImage extends EventEmitter{
 
             canvas.parentNode.appendChild(input)  
             input.style.position = 'absolute'
-            input.style.top = '250px'
+            input.style.top = '130px'
             input.style.left = '50px' 
             
             canvas.parentNode.appendChild(submit)
             submit.innerHTML = "Upload Image"
             submit.style.position = 'absolute'
-            submit.style.top = '280px'
+            submit.style.top = '160px'
             submit.style.left = '50px'
 
             console.log("ok")
@@ -56,7 +57,7 @@ export default class onlyImage extends EventEmitter{
                 this.toDataURL(URL.createObjectURL(input.files[0]), (dataUrl)=>{
                     this.image = dataUrl 
                     console.log(this.image)
-                    this.apiresult = new ApiResultImage(this.image, organ.value)
+                    this.apiresult = new ApiResultImage(this.image, this.organ.value)
                     this.apiresult.on("resultRecieved",()=>{
                         this.setupImage()
                         this.getResult()
@@ -73,7 +74,7 @@ export default class onlyImage extends EventEmitter{
 
         const imageFrame = document.createElement("img")
 
-        imageFrame.style = `border-radius: 12px; width:50%; align: center;right: block;margin-left: auto;margin-right: auto;`
+        imageFrame.style = `border-radius: 12px; width:35%; position:absolute; top:200px; left: 50px`
         imageFrame.id = 'ClassImage'
         imageFrame.src = this.result
 

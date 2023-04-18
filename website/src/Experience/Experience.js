@@ -59,7 +59,7 @@ export default class Experience extends EventEmitter
         dropdown1.addEventListener("change", () => {
             if (dropdown1.value == "HPA/Hubmap Segmentation"){
                 this.onlyImage = new onlyImage(this.canvas, this.canvasImage)
-            }else{
+            }else if(dropdown1.value != "None"){
                 this.onlyText = new onlyText(this.canvas, dropdown1.value)
                 console.log
             }
